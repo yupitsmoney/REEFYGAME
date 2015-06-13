@@ -40,38 +40,44 @@ function create() {
    ground.body.immovable = true;
 
 // this is the ledge at the top left dresser with coin on it
-    ledge_1 = platforms.create(172, 153, 'purp_line');
+    ledge_1 = platforms.create(172, 153, 'blank_line');
     ledge_1.scale.setTo(2.5, 1);
     ledge_1.body.immovable = true;
     // ledge_1.collideDown = true;
     
 
     // this is the ledge for the bed
-   	ledge_2 = platforms.create(425, 400, 'purp_line');
+   	ledge_2 = platforms.create(425, 400, 'blank_line');
    	ledge_2.scale.setTo(3.5, 1);
     ledge_2.body.immovable = true;
-    platforms.collideLeft = false;
-	platforms.collideRight = false;
-	platforms.collideUp = true;
-	platforms.collideDown = false;
-	platforms.faceUp = true;
-	platforms.faceDown = false;
-	platforms.faceLeft = false;
-	platforms.faceRight = false;
-    // ledge_2.collideDown = true;
+
+	// this is the ledge for the top of the desk
+    ledge_3 = platforms.create(140, 365, 'blank_line');
+   	ledge_3.scale.setTo(2.5, 1);
+    ledge_3.body.immovable = true;
+
+    // this is the ledge for the top of the books
+    ledge_4 = platforms.create(150, 320, 'blank_line');
+   	ledge_4.scale.setTo(.5, 1);
+    ledge_4.body.immovable = true;
+
+
+    // this is the ledge for the top of the chair only way to get up
+    ledge_5 = platforms.create(250, 440, 'blank_line');
+   	ledge_5.scale.setTo(.45, 1);
+    ledge_5.body.immovable = true;
    
-    
-    
-
-
-
    // bring character into the game
    	player = game.add.sprite(1, game.world.height - 150, 'user');
 	 //  We need to enable physics on the player
 	    game.physics.arcade.enable(player);
+    	player.body.gravity.y = 500;
+    	player.body.checkCollision.up = false;
+    	player.body.checkCollision.left = false;
+    	player.body.checkCollision.right = false;
 		 //  Player physics properties. Give the little guy a slight bounce.
 	    player.body.bounce.y= 0.2;
-	    player.body.gravity.y = 300;
+	    player.body.gravity.y = 375;
 	    player.body.collideWorldBounds = true;
 	 
 	    //  Our two animations, walking left and right.
@@ -80,22 +86,46 @@ function create() {
 	    // player.animations.add('jumpLeft', [14], 3, true);
 	    // player.animations.add('jumpRight', [26], 3, true);
 
-	coin = game.add.sprite(200, -600, 'coin');
-		game.physics.arcade.enable(coin);
-		 //  Player physics properties. Give the little guy a slight bounce.
-	    coin.scale.x = game.rnd.realInRange(.28, .28);
-  		coin.scale.y = game.rnd.realInRange(.28, .28);
-	    coin.body.bounce.y= 0.2;
-	    coin.body.gravity.y = 300;
-	    coin.body.collideWorldBounds = true;
-	    coin.animations.add('spin', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 10, true);
-	
+
+
+
+
+	        
+
+
+coins = game.add.group();
+
+    coins.enableBody = true;
+
+    //  Here we'll create 12 of them evenly spaced apart
+    for (var i = 1.8; i < 4.5; i++)
+    {
+        //  Create a star inside of the 'stars' group
+        var coin = coins.create(i * 90, 0, 'coin');
+        coin.scale.x = game.rnd.realInRange(.24, .24);
+		coin.scale.y = game.rnd.realInRange(.24, .24);
+
+        //  Let gravity do its thing
+        coin.body.gravity.y = 300;
+        //  This just gives each star a slightly random bounce value
+        coin.body.bounce.y = 0.6 + Math.random() * 0.4;
+
+        coin.animations.add('spin', [5, 6, 7, 8, 9, 10, 9], 10, true);
+        coin.animations.play('spin');
+    }
+
+
+        
+
+    
+
+	   
+    	
 }
 
 
 function update() {
 	game.physics.arcade.collide(player, platforms);
-	game.physics.arcade.collide(coin, platforms);
 	
 	
 
@@ -135,7 +165,14 @@ function update() {
 
 
     // coin animation
-	coin.animations.play('spin');
+	
+	game.physics.arcade.collide(coins, platforms);
+
+
+	// allows player to collect coins
+	game.physics.arcade.overlap(player, coins, collectCoin, null, this);
+	scoreText = game.add.text(16, 16, 'Score: ', { fontSize: '32px', fill: '#000' });
+	
 
 }
 
@@ -154,10 +191,21 @@ function gofull() {
     }
 
 }
+var score = 0;
+function collectCoin (player, coin) {
+	
+    // Removes the star from the screen
+    coin.kill();
+    
 
+    
+    score += 10;
+    scoreText.text = 'Score: ' + score;
+   
+
+}
 
 </script>
-<!-- <div class = "game-container">
-</div> -->
+
 
 
