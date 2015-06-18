@@ -1,6 +1,24 @@
 Rails.application.routes.draw do
   
   root :to => 'games#level_one'
+
+    get "/games" => "games#level_one", as: :level_one
+
+
+
+    get "/users" => "users#index", as: :users
+    get "/users/new" => "users#new", as: :new_user
+    post "/users" => "users#create", as: :create_user
+    get "/users/:id" => "users#show", as: :user_profile
+    get "users/:id/edit" => "users#edit", as: :edit_users
+    patch "users/:id" =>"users#update", as: :update_user
+    delete "users/:id" => "users#destroy"
+
+
+
+    get "/sessions/new" => "sessions#new", as: :new_session
+    post "/sessions" => "sessions#create", as: :create_session
+    get "/sessions/destroy" => "sessions#destroy", as: :destroy_session
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

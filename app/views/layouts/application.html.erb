@@ -5,9 +5,79 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
   <script src="//cdn.jsdelivr.net/phaser/2.3.0/phaser.js"></script>
+  <script type="text/javascript" src="js/bootstrap.js"></script>
+  
 </head>
 <body>
+
+<nav class="navbar navbar-default">
+  
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+
+      </button>
+      <a class="navbar-brand" href="/">Get To The Reef</a>
+    </div>
+   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+       
+        <li><%= link_to  "Play Game", level_one_path %></li>
+   
+
+      <li><% if current_user %>
+        <%= link_to  "User Rankings", users_path %>
+        <% else %> 
+        <% end %>
+      </li>
+        
+        <li><% if current_user %>
+          <%= link_to "#{current_user.name.split.first}", user_profile_path(current_user) %>
+          <% else %> 
+          <% end %>
+        </li> 
+
+
+
+
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-cog" aria-hidden="true"> </span><span class="caret"></span>
+          <ul class="dropdown-menu" role="menu">
+            
+            <li><% if current_user %>
+            <%= link_to "Edit Account", edit_users_path(current_user) %>
+          <% else %>
+              
+          <% end %></li>  
+
+
+            <li>
+                <% if current_user %>
+              <%= link_to "Log out", destroy_session_path %>
+          <% else %>
+              <%= link_to "Login", new_session_path %>
+          <% end %></li>
+
+          <li><% if current_user %>
+            
+          <% else %>
+               <li><%= link_to "Create New Account", new_user_path %></li>
+          <% end %></li> 
+           
+          
+          </ul>
+        </li>
+      </ul>
+  </div>
+   
+  </nav>
 
 
 <%= yield %>
