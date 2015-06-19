@@ -5,4 +5,13 @@ class GamesController < ApplicationController
 
 	def level_two
 	end
+
+	def movearoundworld
+	end
+
+	def fixedtocamera
+	end
+
+	def worldwrap
+	end
 end
