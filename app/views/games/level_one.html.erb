@@ -4,7 +4,7 @@
 <script type="text/javascript">
 
 
-
+var coins, clouds, cloud, player;
 var game = new Phaser.Game(860, 600, Phaser.AUTO, 'game-container', { preload: preload, create: create, update: update });
 
 function preload() {
@@ -14,6 +14,7 @@ function preload() {
     // game.load.spritesheet('user', '/images/hotdogsprite.png', 49, 100);
     game.load.spritesheet('user', '/images/runninmoney.png', 250, 320, 60);
     game.load.spritesheet('coin', '/images/redgacoin.png', 273.29, 300);
+    game.load.spritesheet('cloud', '/images/cloudsprite.png', 500, 275, 13);
 }
 
 function create() {
@@ -92,6 +93,22 @@ function create() {
         cursors = game.input.keyboard.createCursorKeys();
 
 
+clouds = game.add.group();
+
+clouds.enableBody = true;
+
+
+
+
+        var cloud = clouds.create(i * 100,200, 'cloud');
+        // cloud.scale.x = game.rnd.realInRange(.24, .24);
+        // cloud.scale.y = game.rnd.realInRange(.24, .24);
+        
+        cloud.animations.add('cloud',[1,2,3,4,5,6,7,8,9,10,11,12], 7 , true);
+        cloud.animations.play('cloud');
+
+
+
 
 	        
 
@@ -129,7 +146,8 @@ coins = game.add.group();
 
 function update() {
 	game.physics.arcade.collide(player, platforms);
-	
+	// for could movement
+    
 	
     //  Reset the players velocity (movement)
    	player.body.velocity.x = 0;

@@ -2,23 +2,56 @@
 var game = new Phaser.Game(860, 600, Phaser.AUTO, 'game-container', { preload: preload, create: create, update: update });
 
 function preload() {
-	game.load.image('background', '/images/Bedroom_1.jpg');
+	game.load.image('background', '/images/city_parallax.png');
+    game.load.image('sidewalk', '/images/ground_parallax.png');
+
+    game.time.advancedTiming = true;
 
 	}
 function create() {
 	game.physics.startSystem(Phaser.Physics.ARCADE);
-	game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
+    game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
     game.input.onDown.add(gofull, this);
+
+    
+// all created for side scoll
+    // var playerbmd = game.add.bitmapData(32, 32);
+    //     playerbmd.ctx.rect(0, 0, 32, 32);
+    //     playerbmd.ctx.fillStyle = "#fff";
+    //     playerbmd.ctx.fill();
+  
+    //     var groundbmd = game.add.bitmapData(32, 32);
+    //     groundbmd.ctx.rect(0, 0, 32, 32);
+    //     groundbmd.ctx.fillStyle = "#fff";
+    //     groundbmd.ctx.fill();
+    //     groundbmd.ctx.beginPath();
+    //     groundbmd.ctx.rect(0, 0, 16, 16);
+    //     groundbmd.ctx.rect(16, 16, 16, 16);
+    //     groundbmd.ctx.fillStyle = "#bbb";
+    //     groundbmd.ctx.fill();
+
+	
 	
 	// inserting background image
 	background = game.add.image(0, 0, 'background');
 	background.height = game.height;
     background.width = game.width;
 
+// creating ground so i can customize ground
+    group = game.add.group();
+    group.enableBody = true;
+// adding sidewalk
+    ground = game.add.image(-512, game.height - 32, game.width + 512, 32, 'sidewalk');
+// adding physics to the gound ground
+    game.physics.arcade.enable(ground);
+    ground.body.immovable = true;
+    ground.body.allowGravity = false;
+
     }
 
 function update() {
-	}
+}
+    
 
 function gofull() {
 
@@ -30,6 +63,8 @@ function gofull() {
     {
         game.scale.startFullScreen(false);
     }
-
 }
+    
+
+
 </script>
