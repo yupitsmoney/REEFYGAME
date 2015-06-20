@@ -4,9 +4,9 @@ Rails.application.routes.draw do
 
     get "/games" => "games#level_one", as: :level_one
     get "/games" => "games#level_two", as: :level_two
-    get "/games" => "games#movearoundworld", as: :movearoundworld
-    get "/games" => "games#fixedtocamera", as: :fixedtocamera
-    get "/games" => "games#worldwrap", as: :worldwrap
+    get "/games/movearoundworld" => "games#movearoundworld", as: :movearoundworld
+    get "/games/fixedtocamera" => "games#fixedtocamera", as: :fixedtocamera
+    get "/games/worldwrap" => "games#worldwrap", as: :worldwrap
 
 
 
