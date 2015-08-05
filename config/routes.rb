@@ -3,15 +3,11 @@ Rails.application.routes.draw do
   root :to => 'games#level_one'
 
     get "/games" => "games#level_one", as: :level_one
-    get "/games" => "games#level_two", as: :level_two
+    get "/games/level_two" => "games#level_two", as: :level_two
     get "/games/movearoundworld" => "games#movearoundworld", as: :movearoundworld
     get "/games/fixedtocamera" => "games#fixedtocamera", as: :fixedtocamera
     get "/games/worldwrap" => "games#worldwrap", as: :worldwrap
-
-
-
-
-
+    
     get "/users" => "users#index", as: :users
     get "/users/new" => "users#new", as: :new_user
     post "/users" => "users#create", as: :create_user
@@ -19,8 +15,6 @@ Rails.application.routes.draw do
     get "users/:id/edit" => "users#edit", as: :edit_users
     patch "users/:id" =>"users#update", as: :update_user
     delete "users/:id" => "users#destroy"
-
-
 
     get "/sessions/new" => "sessions#new", as: :new_session
     post "/sessions" => "sessions#create", as: :create_session
